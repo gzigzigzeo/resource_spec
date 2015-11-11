@@ -6,6 +6,7 @@ RSpec.shared_examples "GET :index" do
       get :index, index_url_args
 
       expect(response).to be_success
+      expect(collection).to be_present, "let(:collection) is blank and must point to actual collection"
       expect(collection.size).to eq(expected_collection.size)
       expect(collection).to include(*expected_collection)
     end
