@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe RespondWithsController, type: :controller do
-  it do
-    get :new
+  include_context "ResourceSpec" do
+    
   end
 end
