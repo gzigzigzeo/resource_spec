@@ -1,12 +1,37 @@
 RSpec.shared_context "ResourceSpec" do |model|
   let(:model) { model }
+
   let(:param_name) { model.model_name.param_key }
-  let(:attributes) do
-    unless defined?(FactoryGirl)
-      fail "FactoryGirl is not loaded, roll your own let(:attributes)"
-    end
-    FactoryGirl.attributes_for(model)
-  end
+  let(:primary_key_param_name) { :id }
+
+  let(:attributes) { FactoryGirl.attributes_for(model) }
   let(:params) { attributes }
-  let(:record) { assigns[param_name] }
+  let(:invalid_params) { Hash[params.keys.zip([""] * params.keys.size)] }
+
+  let(:resource) { assigns[param_name] }
+  let(:instance) { FactoryGirl.create(model) }
+
+  let(:url_args) { {} }
+
+  let(:new_url_args) { url_args.merge(param_name => params) }
+
+  let(:create_url_args) { new_url_args }
+  let(:invalid_create_url_args) { url_args.merge(param_name => invalid_params) }
+  let(:success_create_url) do
+    controller.url_for(action: :show, primary_key_param_name => resource.id)
+  end
+
+  let(:edit_url_args) { url_args.merge(primary_key_param_name => instance.id) }
+  let(:invalid_edit_url_args) { url_args.merge(primary_key_param_name => -1) }
+
+  let(:update_url_args) { edit_url_args.merge(new_url_args) }
+  let(:invalid_update_url_args) do
+    edit_url_args.merge(param_name => invalid_params)
+  end
+  let(:success_update_url) do
+    controller.url_for(action: :show, primary_key_param_name => resource.id)
+  end
+
+  let(:destroy_url_args) { edit_url_args }
+  let(:success_destroy_url) { controller.url_for(action: :index) }
 end
