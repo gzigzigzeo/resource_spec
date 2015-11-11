@@ -15,11 +15,13 @@ RSpec.shared_context "ResourceSpec" do |model|
 
   let(:new_url_args) { url_args.merge(param_name => params) }
 
-  let(:create_url_args) { new_url_args }
-  let(:invalid_create_url_args) { url_args.merge(param_name => invalid_params) }
-  let(:success_create_url) do
+  let(:success_resource_url) do
     controller.url_for(action: :show, primary_key_param_name => resource.id)
   end
+
+  let(:create_url_args) { new_url_args }
+  let(:invalid_create_url_args) { url_args.merge(param_name => invalid_params) }
+  let(:success_create_url) { success_resource_url }
 
   let(:edit_url_args) { url_args.merge(primary_key_param_name => instance.id) }
 
@@ -27,9 +29,7 @@ RSpec.shared_context "ResourceSpec" do |model|
   let(:invalid_update_url_args) do
     edit_url_args.merge(param_name => invalid_params)
   end
-  let(:success_update_url) do
-    controller.url_for(action: :show, primary_key_param_name => resource.id)
-  end
+  let(:success_update_url) { success_resource_url }
 
   let(:destroy_url_args) { edit_url_args }
   let(:success_destroy_url) { controller.url_for(action: :index) }
