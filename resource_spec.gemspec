@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "factory_girl"
   spec.add_development_dependency "ffaker"
   spec.add_development_dependency "responders", "~> 2.0"
+  spec.add_development_dependency "database_cleaner"
   spec.add_dependency "rspec"
   spec.add_dependency "rspec-rails"
 end

@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   respond_to :html
 
+  def index
+    @users = User.all
+    respond_with(@users)
+  end
+
   def new
     build_user
     respond_with(@user)

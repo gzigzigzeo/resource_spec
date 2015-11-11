@@ -34,3 +34,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/resource_spec.
 
+
+1. working with files
+2. nested
+3. passwords

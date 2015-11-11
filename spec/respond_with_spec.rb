@@ -7,5 +7,6 @@ describe UsersController, type: :controller do
     it_behaves_like "GET :edit"
     it_behaves_like "PUT :update"
     it_behaves_like "DELETE :destroy"
+    it_behaves_like "GET :index"
   end
 end

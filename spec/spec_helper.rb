@@ -9,5 +9,13 @@ require File.expand_path("../dummy/db/schema.rb", __FILE__)
 require "rspec/rails"
 require "factory_girl"
 require "ffaker"
+require "database_cleaner"
 
 FactoryGirl.reload
+
+RSpec.configure do |config|
+  config.around(:each) do |example|
+    DatabaseCleaner.strategy = example.metadata[:clean_with] || :transaction
+    DatabaseCleaner.cleaning { example.run }
+  end
+end

@@ -5,13 +5,19 @@ RSpec.shared_context "ResourceSpec" do |model|
   let(:primary_key_param_name) { :id }
 
   let(:attributes) { FactoryGirl.attributes_for(model) }
+  let(:not_expected_params) { [] }
   let(:params) { attributes }
   let(:invalid_params) { Hash[params.keys.zip([""] * params.keys.size)] }
+  let(:params_to_expect) { params.except(*not_expected_params) }
 
   let(:resource) { assigns[param_name] }
   let(:instance) { FactoryGirl.create(model) }
 
+  let(:collection) { assigns[param_name.to_s.pluralize.to_sym] }
+
   let(:url_args) { {} }
+
+  let(:index_url_args) { {} }
 
   let(:new_url_args) { url_args.merge(param_name => params) }
 
