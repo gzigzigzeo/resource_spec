@@ -10,7 +10,7 @@ Test your RESTful Rails controllers with ease.
 
 ### Motivation
 
-In every rails app we have a set of controllers which incapsulates simple CRUD logic, especially in admin area. Most of such controllers stays uncovered: it often seems excessive to test typical things. In other hand, in such typical places there always exists some unusual logic, which had to be tested. Furthermore, 100% test coverage rocks.
+In every Rails app we have a set of controllers which encapsulates simple CRUD logic, especially in the admin area. Most of such controllers stays uncovered: it often seems excessive to test typical things. In other hand, in such typical places there always exists some unusual logic, which had to be tested. Furthermore, 100% test coverage rocks.
 
 ## Simple Use Case
 
