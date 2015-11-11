@@ -90,6 +90,17 @@ around { |example| travel_to(Time.now, &example) }
 
 If you have Date columns - use `#to_date` in factory.
 
+### Additional action expectations
+
+```ruby
+include_context "ResourceSpec", User do
+  it_behaves_like "GET :new" do
+    after { expect(response.body).to include("form") }
+  end
+  ...
+end
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
