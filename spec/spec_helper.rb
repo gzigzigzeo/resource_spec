@@ -10,6 +10,7 @@ require "rspec/rails"
 require "factory_girl"
 require "ffaker"
 require "database_cleaner"
+require "resource_spec/all"
 
 FactoryGirl.reload
 

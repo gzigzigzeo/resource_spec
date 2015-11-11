@@ -9,14 +9,14 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Victor Sokolov"]
   spec.email         = ["gzigzigzeo@evilmartians.com"]
 
-  spec.summary       = %(RSpec shared examples for testing Rails resources)
-  spec.description   = %(RSpec shared examples for testing Rails resources)
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %(RSpec shared examples for testing Rails REST controllers)
+  spec.description   = %(RSpec shared examples for testing Rails REST controllers)
+  spec.homepage      = "https://github.com/gzigzigzeo/resource_spec"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata["allowed_push_host"] = "http://gemcutter.org"
   else
     fail(
       "RubyGems 2.0 or newer is required to protect against public gem pushes."

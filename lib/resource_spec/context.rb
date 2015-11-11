@@ -3,15 +3,16 @@ RSpec.shared_context "ResourceSpec" do |model|
 
   let(:param_name) { model.model_name.param_key }
   let(:primary_key_param_name) { :id }
+  let(:factory_name) { model }
 
-  let(:attributes) { FactoryGirl.attributes_for(model) }
+  let(:attributes) { FactoryGirl.attributes_for(factory_name).except(:id) }
   let(:not_expected_params) { [] }
   let(:params) { attributes }
   let(:invalid_params) { Hash[params.keys.zip([""] * params.keys.size)] }
   let(:params_to_expect) { params.except(*not_expected_params) }
 
   let(:resource) { assigns[param_name] }
-  let(:instance) { FactoryGirl.create(model) }
+  let(:instance) { FactoryGirl.create(factory_name) }
 
   let(:collection) { assigns[param_name.to_s.pluralize.to_sym] }
 

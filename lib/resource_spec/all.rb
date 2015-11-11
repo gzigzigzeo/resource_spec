@@ -1,0 +1,7 @@
+require "resource_spec/context"
+require "resource_spec/index"
+require "resource_spec/new"
+require "resource_spec/edit"
+require "resource_spec/create"
+require "resource_spec/update"
+require "resource_spec/destroy"

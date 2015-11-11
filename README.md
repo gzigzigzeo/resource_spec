@@ -1,15 +1,107 @@
 # ResourceSpec
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/resource_spec`. To experiment with that code, run `bin/console` for an interactive prompt.
+Test your RESTful Rails controllers with ease.
 
-TODO: Delete this and the text above, and describe your gem
+### Motivation
+
+In every rails app we have a set of controllers which incapsulates simple CRUD logic, especially in admin area. Most of such controllers stays uncovered: it often seems excessive to test typical things. In other hand, in such typical places there always exists some unusual logic, which had to be tested. Furthermore, 100% test coverage rocks.
+
+## Simple Use Case
+
+Given we have [typical REST controller](spec/dummy/app/controllers/users_controller.rb).
+
+It can be tested with a few lines of code:
+
+```ruby
+include_context "ResourceSpec", User do
+  it_behaves_like "GET :new"
+  it_behaves_like "POST :create"
+  it_behaves_like "GET :edit"
+  it_behaves_like "PUT :update"
+  it_behaves_like "DELETE :destroy"
+  it_behaves_like "GET :index"
+end
+```
+
+`FactoryGirl` factory for `User` must be defined. Calls to `FactoryGirl` or other factory engine can be overriden with settings.
+
+## Customization
+
+Take a look at [default settings](lib/resource_spec/context.rb). All of these settings can be changed inside `include_context` block.
+
+Some examples:
+
+### Redirect to `#index` instead of `#show` on create
+
+Define override context somewhere in `support` folder:
+
+```ruby
+RSpec.shared_context "ResourceSpec overrides" do
+  let(:success_resource_url) { controller.url_for(action: :index) }
+end
+```
+
+Then include:
+
+```ruby
+include_context "ResourceSpec", User do
+  include_context "ResourceSpec overrides"
+
+  ...
+end
+```
+
+### Nesting
+
+This will make nested resources like `/category/:category_id/groups` work:
+
+```ruby
+  let(:category) { create(:category) }
+
+  include_context "ResourceSpec", Group do
+    let(:url_args) { { category_id: category.id } }
+
+    ...
+  end
+```
+
+### Skipping passwords
+
+`POST :create` and `PUT :update` examples are checking the record on compliance between params passed by request and record values saved to database. Some fields like images, generated tokens, encrypted passwords must be skipped.
+
+```ruby
+include_context "ResourceSpec", User do
+  let(:not_expected_params) do
+    %i(password password_confirmation last_sign_in_at)
+  end
+
+  ...
+end
+
+```
+
+### Timestamps
+
+If you have any DateTime fields in your model - freeze the time:
+
+```ruby
+around { |example| travel_to(Time.now, &example) }
+```
+
+If you have Date columns - use `#to_date` in factory.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'resource_spec'
+gem "resource_spec"
+```
+
+And this to `spec_helper.rb`:
+
+```ruby
+require "resource_spec/all"
 ```
 
 And then execute:
@@ -20,10 +112,6 @@ Or install it yourself as:
 
     $ gem install resource_spec
 
-## Usage
-
-TODO: Write usage instructions here
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -32,9 +120,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/resource_spec.
-
-
-1. working with files
-2. nested
-3. passwords
+Bug reports and pull requests are welcome on GitHub at https://github.com/gzigzigzeo/resource_spec.
