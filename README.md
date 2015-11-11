@@ -23,7 +23,7 @@ include_context "ResourceSpec", User do
 end
 ```
 
-`FactoryGirl` factory for `User` must be defined. Calls to `FactoryGirl` or other factory engine can be overriden with settings.
+`FactoryGirl` factory for `User` must be defined. Calls to `FactoryGirl` or other factory engine can be overridden with settings.
 
 ## Customization
 
