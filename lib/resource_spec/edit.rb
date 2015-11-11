@@ -6,11 +6,5 @@ RSpec.shared_examples "GET :edit" do
       expect(response).to be_success
       expect(resource).to eq(instance)
     end
-
-    it "ActiveRecord::RecordNotFound" do
-      expect { get :edit, invalid_edit_url_args }.to raise_error(
-        ActiveRecord::RecordNotFound
-      )
-    end
   end
 end

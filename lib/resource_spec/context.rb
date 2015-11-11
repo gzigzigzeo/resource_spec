@@ -22,7 +22,6 @@ RSpec.shared_context "ResourceSpec" do |model|
   end
 
   let(:edit_url_args) { url_args.merge(primary_key_param_name => instance.id) }
-  let(:invalid_edit_url_args) { url_args.merge(primary_key_param_name => -1) }
 
   let(:update_url_args) { edit_url_args.merge(new_url_args) }
   let(:invalid_update_url_args) do
