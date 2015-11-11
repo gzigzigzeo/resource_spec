@@ -1,5 +1,5 @@
 require "resource_spec/version"
+require "resource_spec/context"
 
 module ResourceSpec
-  # Your code goes here...
 end
