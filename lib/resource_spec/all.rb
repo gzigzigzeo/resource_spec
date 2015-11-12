@@ -1,4 +1,5 @@
 require "resource_spec/context"
+require "resource_spec/shared"
 require "resource_spec/index"
 require "resource_spec/new"
 require "resource_spec/edit"

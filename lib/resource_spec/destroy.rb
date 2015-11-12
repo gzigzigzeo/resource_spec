@@ -1,14 +1,21 @@
 RSpec.shared_examples "DELETE :destroy" do |**kwargs|
   describe "DELETE :destroy" do
-    it "301" do
-      delete :destroy, destroy_url_args
+    context "success" do
+      let(:url_args) { destroy_url_args }
+      let(:redirect_url) { success_destroy_url }
 
-      expect(response).to redirect_to(success_destroy_url)
+      before { delete :destroy, url_args }
 
-      if kwargs[:paranoid]
-        expect(resource.deleted_at).to be_present
-      else
-        expect { resource.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      include_examples "responds 301"
+
+      it "resource destroyed" do
+        if kwargs[:paranoid]
+          expect(resource.deleted_at).to be_present
+        else
+          expect { resource.reload }.to raise_error(
+            ActiveRecord::RecordNotFound
+          )
+        end
       end
     end
   end

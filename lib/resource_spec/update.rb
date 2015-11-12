@@ -1,19 +1,23 @@
 RSpec.shared_examples "PUT :update" do
   describe "PUT :update" do
-    it "301" do
-      put :update, update_url_args
+    context "success" do
+      let(:url_args) { update_url_args }
+      let(:redirect_url) { success_update_url }
 
-      expect(resource.errors).to be_blank, "Given params: #{create_url_args} failed with errors: #{resource.errors.full_messages}, "
-      expect(resource.reload).to have_attributes(params_to_expect)
+      before { put :update, url_args }
 
-      expect(response).to redirect_to(success_update_url)
+      include_examples "responds 301"
+      include_examples "resource has no errors"
+      include_examples "resource has expected attributes"
     end
 
-    it "422" do
-      put :update, invalid_update_url_args
+    context "fail" do
+      let(:url_args) { invalid_update_url_args }
 
-      expect(response).to be_success
-      expect(resource.errors).to be_present
+      before { post :update, url_args }
+
+      include_examples "responds 200"
+      include_examples "resource has errors"
     end
   end
 end

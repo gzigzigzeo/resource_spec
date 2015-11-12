@@ -1,9 +1,12 @@
 RSpec.shared_examples "GET :edit" do
   describe "GET :edit" do
-    it "200" do
-      get :edit, edit_url_args
+    let(:url_args) { edit_url_args }
 
-      expect(response).to be_success
+    before { get :edit, url_args }
+
+    include_examples "responds 200"
+
+    it "resource loaded" do
       expect(resource).to eq(instance)
     end
   end

@@ -27,21 +27,21 @@ RSpec.shared_context "ResourceSpec" do |model|
   # Returns collection, same as :resource
   let(:collection) { assigns[param_name.to_s.pluralize.to_sym] }
 
-  let(:url_args) { {} }
+  let(:default_url_args) { {} }
 
   let(:index_url_args) { {} }
 
-  let(:new_url_args) { url_args.merge(param_name => params) }
+  let(:new_url_args) { default_url_args.merge(param_name => params) }
 
   let(:success_resource_url) do
     controller.url_for(action: :show, primary_key_param_name => resource.id)
   end
 
   let(:create_url_args) { new_url_args }
-  let(:invalid_create_url_args) { url_args.merge(param_name => invalid_params) }
+  let(:invalid_create_url_args) { default_url_args.merge(param_name => invalid_params) }
   let(:success_create_url) { success_resource_url }
 
-  let(:edit_url_args) { url_args.merge(primary_key_param_name => instance.id) }
+  let(:edit_url_args) { default_url_args.merge(primary_key_param_name => instance.id) }
 
   let(:update_url_args) { edit_url_args.merge(new_url_args) }
   let(:invalid_update_url_args) do

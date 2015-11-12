@@ -65,7 +65,7 @@ This will make nested resources like `/category/:category_id/groups` work:
   let(:category) { create(:category) }
 
   include_context "ResourceSpec", Group do
-    let(:url_args) { { category_id: category.id } }
+    let(:base_url_args) { { category_id: category.id } }
 
     ...
   end

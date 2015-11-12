@@ -1,11 +1,16 @@
 RSpec.shared_examples "GET :new" do
   describe "GET :new" do
-    it "200" do
-      get :new, new_url_args
+    let(:url_args) { new_url_args }
 
-      expect(response).to be_success
+    before { get :new, url_args }
 
-      expect(resource).to be_present, "let(:resource) must point to controller variable containing instance, assigns[#{param_name}] by default"
+    include_examples "responds 200"
+
+    it "resource exists" do
+      expect(resource).to be_present
+    end
+
+    it "resource is new record" do
       expect(resource).to be_new_record
     end
   end
