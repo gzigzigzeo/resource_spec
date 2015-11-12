@@ -101,7 +101,9 @@ If you have Date columns - use `#to_date` in factory.
 ```ruby
 include_context "ResourceSpec", User do
   it_behaves_like "GET :new" do
-    after { expect(response.body).to include("form") }
+    it "includes form tag" do
+      expect(response.body).to include("form")
+    end
   end
   ...
 end
