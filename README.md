@@ -152,7 +152,7 @@ describe "updating collection" do
 end
 ```
 
-Take a look on shared examples we have [shared groups](lib/resource_spec/shared.rb).
+Take a look on [shared examples](lib/resource_spec/shared.rb) we have.
 
 
 ## Installation
