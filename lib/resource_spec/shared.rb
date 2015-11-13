@@ -10,6 +10,28 @@ RSpec.shared_examples "responds 301" do
   end
 end
 
+RSpec.shared_examples "responds with success" do |options = {}|
+  if options[:xhr]
+    include_examples "responds 200"
+  else
+    include_examples "responds 301"
+  end
+end
+
+RSpec.shared_examples "responds with failure" do |options = {}|
+  if options[:xhr]
+    include_examples "responds 422"
+  else
+    include_examples "responds 200"
+  end
+end
+
+RSpec.shared_examples "responds 422" do
+  it "responds 422" do
+    expect(response).to be_unprocessable
+  end
+end
+
 RSpec.shared_examples "resource has no errors" do
   it "resource has no errors" do
     expect(resource.errors).to be_blank, "Given params: #{url_args} failed with errors: #{resource.errors.full_messages}"

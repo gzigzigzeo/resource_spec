@@ -1,15 +1,21 @@
-RSpec.shared_examples "DELETE :destroy" do |**kwargs|
+RSpec.shared_examples "DELETE :destroy" do |options = {}|
   describe "DELETE :destroy" do
     context "success" do
       let(:url_args) { destroy_url_args }
       let(:redirect_url) { success_destroy_url }
 
-      before { delete :destroy, url_args }
+      before do
+        if options[:xhr]
+          xhr :delete, :destroy, url_args
+        else
+          delete :destroy, url_args
+        end
+      end
 
-      include_examples "responds 301"
+      include_examples "responds with success", options
 
       it "resource destroyed" do
-        if kwargs[:paranoid]
+        if options[:paranoid]
           expect(resource.deleted_at).to be_present
         else
           expect { resource.reload }.to raise_error(
