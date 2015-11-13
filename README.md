@@ -127,6 +127,34 @@ include_context "ResourceSpec", User do
 end
 ```
 
+## Using shared example groups separately
+
+Sometimes you do not need all the default flow in your spec. You can use just that expectations that you need. Here is the example from one of the real projects:
+
+```ruby
+describe "updating collection" do
+  include_context "ResourceSpec", Collection
+
+  let(:resource) { controller.collection }
+  let(:instance) { create(:collection, :with_items, user: user }
+
+  it_behaves_like "PUT :update, success", xhr: true
+
+  describe "PUT :update, fail" do
+    let(:url_args) { invalid_update_url_args }
+
+    # Special case: model validations are external.
+    before { allow(controller.form).to receive(:save).and_return(false) }
+
+    include_examples "send PUT :update", xhr: true
+    include_examples "responds with failure", xhr: true
+  end
+end
+```
+
+Take a look on shared examples we have [shared groups](lib/resource_spec/shared.rb).
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
