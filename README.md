@@ -109,6 +109,24 @@ include_context "ResourceSpec", User do
 end
 ```
 
+### XHR
+
+```ruby
+include_context "ResourceSpec", User do
+  it_behaves_like "POST :create", xhr: true
+  it_behaves_like "PUT :update", xhr: true
+  it_behaves_like "DELETE :destroy", xhr: true
+end
+```
+
+### Paranoia on destroy
+
+```ruby
+include_context "ResourceSpec", User do
+  it_behaves_like "DELETE :destroy", paranoid: true
+end
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
